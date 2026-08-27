@@ -1,0 +1,14 @@
+{
+  "name": "zonus-app-de-teste",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicação de teste da plataforma Zonus: cada card da página é uma verificação real da esteira de deploy.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node construir.js",
+    "start": "node servidor.js"
+  },
+  "dependencies": {
+    "pg": "8.13.1"
+  }
+}
