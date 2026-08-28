@@ -28,10 +28,13 @@ async function testarBanco() {
 }
 
 async function testarSaida() {
+  // Qualquer RESPOSTA HTTP prova a saída: o pedido chegou ao servidor e voltou.
+  // Só "não conectou" (exceção) é falha de egress — um 403/429 do outro lado
+  // ainda é a internet funcionando. (api.github.com dava 403 por rate limit do
+  // IP e o card ficava vermelho sem motivo.)
   try {
-    const controle = AbortSignal.timeout(4000);
-    const r = await fetch('https://api.github.com/zen', { signal: controle });
-    return { ok: r.ok, detalhe: `GET api.github.com → ${r.status} (apps têm internet de saída)` };
+    const r = await fetch('https://example.com', { signal: AbortSignal.timeout(4000) });
+    return { ok: true, detalhe: `GET example.com → HTTP ${r.status}: os apps têm internet de saída` };
   } catch (erro) {
     return { ok: false, detalhe: `sem saída para a internet: ${String(erro.message).slice(0, 80)}` };
   }
